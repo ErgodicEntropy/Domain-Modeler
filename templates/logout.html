@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta>
+    <title>E-Learning Platform</title>
+    <link href="./style.css" rel="style">
+    <script src="/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">Study Helper</h1>
+    <p class="text-gray-700 text-base text-center max-w-xl mx-auto mb-6">You logged out!</p>
+
+    <div class="flex justify-center items-center mt-8">
+            <form method="GET" action="/home.html"  class="w-full max-w-sm bg-white p-6 rounded-xl shadow-md">
+                <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">Log Back In?</h2>
+
+                <div class="mb-4">
+                    <label for="htmlEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="em" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-md
+                       focus:outline-none focus:ring-2 focus:ring-blue-500
+                       focus:border-blue-500" required>
+                </div>
+
+                <div class="mb-6">
+                    <label for="htmlPass" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="ps" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md
+                       focus:outline-none focus:ring-2 focus:ring-blue-500
+                       focus:border-blue-500" required>
+                </div>
+                    <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200">Log In</button>
+            </form>
+    </div>
+    
+
+</body>
+
+</html>
