@@ -2,6 +2,17 @@
 
 ## Product Management
 
+### To Do
+1. Optimize data list:
+    1. add more parameters
+    2. add more units
+    3. data model: which units exist? why they exist? how are they related?
+2. Enable file uploading -> node framework for RAG
+3. Enable group work
+4. Enable CRUD: add, delete, update, sort and visualize
+5. Handle examination per course: code -> simulation box, text -> paragraphs, etc
+6. Dashboard for student modeling
+
 ### System Requirements
 
 Authentification
