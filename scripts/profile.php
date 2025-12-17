@@ -1,77 +1,39 @@
 <?php
 
-$username = "Ayoub";
-$password = ""; 
-$servername = "";
-$dbname = "";
-$port = 5000;
+$us = $_POST["username"];
+$age = $_POST["date"];
+$lang = $_POST["language"];
 
-$cnx = new mysqli($username, $password, $servername, $dbname, $port); 
+
+if (!isset($us) || !isset($age) || !isset($lang)){
+    die("invalid request! try again");
+} else {
+    echo "valid request!";
+}
+
+
+$servername = "emsi123";
+$username = "emsiUser";
+$password = ""; 
+$dbname = "EMSIDB";
+
+$cnx = new mysqli($servername, $username, $password, $dbname); 
 
 if ($cnx->connect_error){
     die("connection error" . $cnx->connect_error);
 } else {
-
+    echo "connected successfully!"; 
 }
 
-$db = "CREATE DATABASE EMSI IF NOT EXISTS;";
+$prep = $cnx->prepare("INSERT INTO Students (username, birth, lang) VALUES(?,?)"); 
+$prep->bind_param("sds", $us, $age, $lang);
 
-$sql = "CREATE TALBE Student(
-    Id INT PRIMARY KEY AUTO_INCREMENT;
-    username VARCHAR;
-    birth DATE;
-    lang VARCHAR;    
-);"; 
-
-if ($cnx->query($sql)){
-    echo "Table successfully created!";
-} else {
-    echo "Table not created:" . $cnx->error;
-}
+$prep->execute();
+$prep->close();
 
 
-
-
-
-class Person{
-    public $name;
-    public $age;
-
-    function __construct($n, $a, $g){
-        $this->name = $n; 
-        $this->age = $a;
-    }
-
-    function getName(){
-        return $this->name;
-    }
-
-    function getAge(){
-        return $this->age;
-    }
-
-
-    function __destruct(){
-        echo "{$this->name} has been destroyed!";
-    }
-}
-
-class Student extends Person{
-    private $grade;
-    function __construct($g){
-        $this->grade = $g; 
-    }    
-
-    function getGrade(){
-        return $this->grade;
-    }
-
-}
-
-
-
-
-header("locate: home.html"); 
-
+$cnx->close();
+header("Location: home.html"); 
+exit; 
 ?>
 

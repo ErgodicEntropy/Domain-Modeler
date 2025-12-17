@@ -614,6 +614,8 @@ const course = domainModel[courseIndex];
 
 const tbody = document.getElementById('knowledgeTableB'); 
 
+let counter = 0;
+
 course.forEach(k => {
     const tr = document.createElement('tr');
     tr.className = "even:bg-gray-100 hover:bg-gray-200"; 
@@ -642,7 +644,7 @@ course.forEach(k => {
     td5.className = "px-4 py-2 border border-gray-200";
 
     const exBtn = document.createElement('button');
-    exBtn.id = ""; 
+    exBtn.id = `exBtn${counter}`; 
     exBtn.textContent = "Examinate";
     exBtn.setAttribute('type', 'button');
     exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
@@ -652,8 +654,32 @@ course.forEach(k => {
     tr.append(td1,td2,td3,td4,td5,td6);
 
     tbody.appendChild(tr); 
+
+    ++counter; 
 });
 
+
+let data = domainModel;
+
+let bc = 0; //button counter
+while (bc < data[courseDir[selectedCourse]].length){
+  const exb = document.getElementById(`exBtn${bc}`); 
+  exb.addEventListener('click', e=>{
+    e.preventDefault();
+    try {
+      const idArr = exb.id.split(',');
+      // const index = Number(idArr[-1]); //exBtn0 -> 0  
+      const index = parseInt(idArr[-1]); //exBtn0 -> 0  
+
+      const chapter = data[courseDir[selectedCourse]][index];
+
+      const tb = document.getElementsByClassName('');
+    } catch(err){
+      console.error(err.message);
+
+    }
+  })
+}
 
 const addBtn = document.getElementById("addBtn");
 const updateBtn = document.getElementById("updateBtn");
@@ -665,6 +691,7 @@ const auForm  = document.getElementById('auForm');
 
 
 addBtn.addEventListener('click', e=>{
+    counter++;
     const overlay = document.getElementById('overlay');
     overlay.classList.remove('hidden');
 
@@ -705,7 +732,7 @@ addBtn.addEventListener('click', e=>{
     td5.className = "px-4 py-2 border border-gray-200";
 
     const exBtn = document.createElement('button');
-    exBtn.id = ""; 
+    exBtn.id = `${counter}`; 
     exBtn.textContent = "Examinate";
     exBtn.setAttribute('type', 'button');
     exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
@@ -716,6 +743,7 @@ addBtn.addEventListener('click', e=>{
 
     tbody.appendChild(tr); 
 
+    data[courseDir[selectedCourse]].push({knowledgeUnit: name, definition: def, purpose: pur, position: pos, references: ref});
 })
 
 
@@ -742,3 +770,9 @@ visBtn.addEventListener('click', e=>{
 auForm.addEventListener('submit', e=>{
     e.preventDefault(); 
 })
+
+
+
+
+
+window.localStorage.setItem('data', JSON.stringify(data));
