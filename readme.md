@@ -8,10 +8,11 @@
     2. add more units
     3. data model: which units exist? why they exist? how are they related?
 2. Enable file uploading -> node framework for RAG
-3. Enable group work
+3. Enable group work -> peer to peer examination and grading
 4. Enable CRUD: add, delete, update, sort and visualize
 5. Handle examination per course: code -> simulation box, text -> paragraphs, etc
 6. Dashboard for student modeling
+7. Add database in the backend (mysqli php)
 
 ### System Requirements
 

@@ -36,3 +36,20 @@ courseForm.addEventListener('submit', e=>{
 
     }
 })
+
+
+
+class Person {
+    constructor(n,a){
+        this.name = n;
+        this.age = a;
+    }   
+
+    getName(){
+      return this.name;  
+    }
+    
+    getAge(){
+        return this.age;
+    }
+}
