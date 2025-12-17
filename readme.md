@@ -13,7 +13,7 @@
 5. Handle examination per course: code -> simulation box, text -> paragraphs, etc
 6. Dashboard for student modeling
 7. Add database in the backend (mysqli php)
-
+8. create branch: git branch -m -> two branches: one for client-side only (js) and the other for client-side and server side (js+php mysql)
 ### System Requirements
 
 Authentification
