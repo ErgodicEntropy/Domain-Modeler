@@ -619,21 +619,27 @@ let counter = 0;
 course.forEach(k => {
     const tr = document.createElement('tr');
     tr.className = "even:bg-gray-100 hover:bg-gray-200"; 
+    tr.id = `tR${counter}`; 
+
     const td1 = document.createElement('td');
     td1.textContent = k.knowledgeUnit;
     td1.className = "px-4 py-2 border border-gray-200";
+    td1.id = `knowledgeUnit${counter}`; 
 
     const td2 = document.createElement('td');
     td2.textContent = k.definition;
     td2.className = "px-4 py-2 border border-gray-200";
+    td2.id = `definition${counter}`; 
 
     const td3 = document.createElement('td');
     td3.textContent = k.purpose;
     td3.className = "px-4 py-2 border border-gray-200";
+    td3.id = `purpose${counter}`; 
 
     const td4 = document.createElement('td');
     td4.textContent = k.position;
     td4.className = "px-4 py-2 border border-gray-200";
+    td4.id = `position${counter}`; 
 
     const td5 = document.createElement('td');
     const a = document.createElement('a'); 
@@ -642,15 +648,31 @@ course.forEach(k => {
     a.target = '_blank';
     td5.appendChild(a);
     td5.className = "px-4 py-2 border border-gray-200";
+    td5.id = `reference${counter}`; 
 
+
+    //action buttons
     const exBtn = document.createElement('button');
     exBtn.id = `exBtn${counter}`; 
     exBtn.textContent = "Examinate";
     exBtn.setAttribute('type', 'button');
     exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+
+    const updateBtn = document.createElement('button');
+    updateBtn.id = `updateBtn${counter}`;
+    updateBtn.textContent = "Update";
+    updateBtn.setAttribute('type', 'button');
+    updateBtn.className = "w-full bg-purple-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+
+    const delBtn = document.createElement('button');
+    delBtn.id = `delBtn${counter}`;
+    delBtn.textContent = "Delete";
+    delBtn.setAttribute('type', 'button');
+    delBtn.className = "w-full bg-red-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+
     const td6 = document.createElement('td');
-    td6.appendChild(exBtn); 
-    
+    td6.append(exBtn, updateBtn, delBtn); 
+
     tr.append(td1,td2,td3,td4,td5,td6);
 
     tbody.appendChild(tr); 
@@ -659,31 +681,10 @@ course.forEach(k => {
 });
 
 
+
 let data = domainModel;
 
-let bc = 0; //button counter
-while (bc < data[courseDir[selectedCourse]].length){
-  const exb = document.getElementById(`exBtn${bc}`); 
-  exb.addEventListener('click', e=>{
-    e.preventDefault();
-    try {
-      const idArr = exb.id.split(',');
-      // const index = Number(idArr[-1]); //exBtn0 -> 0  
-      const index = parseInt(idArr[-1]); //exBtn0 -> 0  
-
-      const chapter = data[courseDir[selectedCourse]][index];
-
-      const tb = document.getElementsByClassName('');
-    } catch(err){
-      console.error(err.message);
-
-    }
-  })
-}
-
 const addBtn = document.getElementById("addBtn");
-const updateBtn = document.getElementById("updateBtn");
-const delBtn = document.getElementById("delBtn");
 const visBtn = document.getElementById("visBtn");
 
 
@@ -707,21 +708,27 @@ addBtn.addEventListener('click', e=>{
 
     const tr = document.createElement('tr');
     tr.className = "even:bg-gray-100 hover:bg-gray-200"; 
+    tr.id = `tR${counter}`; 
+
     const td1 = document.createElement('td');
     td1.textContent = name;
     td1.className = "px-4 py-2 border border-gray-200";
+    td1.id = `knowledgeUnit${counter}`; 
 
     const td2 = document.createElement('td');
     td2.textContent = def;
     td2.className = "px-4 py-2 border border-gray-200";
+    td2.id = `definition${counter}`; 
 
     const td3 = document.createElement('td');
     td3.textContent = pur;
     td3.className = "px-4 py-2 border border-gray-200";
+    td3.id = `purpose${counter}`; 
 
     const td4 = document.createElement('td');
     td4.textContent = pos;
     td4.className = "px-4 py-2 border border-gray-200";
+    td4.id = `position${counter}`; 
 
     const td5 = document.createElement('td');
     const a = document.createElement('a'); 
@@ -730,14 +737,30 @@ addBtn.addEventListener('click', e=>{
     a.target = '_blank';
     td5.appendChild(a);
     td5.className = "px-4 py-2 border border-gray-200";
+    td5.id = `reference${counter}`; 
 
+
+    //action buttons
     const exBtn = document.createElement('button');
-    exBtn.id = `${counter}`; 
+    exBtn.id = `exBtn${counter}`; 
     exBtn.textContent = "Examinate";
     exBtn.setAttribute('type', 'button');
     exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+
+    const updateBtn = document.createElement('button');
+    updateBtn.id = `updateBtn${counter}`;
+    updateBtn.textContent = "Update";
+    updateBtn.setAttribute('type', 'button');
+    updateBtn.className = "w-full bg-purple-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+
+    const delBtn = document.createElement('button');
+    delBtn.id = `delBtn${counter}`;
+    delBtn.textContent = "Delete";
+    delBtn.setAttribute('type', 'button');
+    delBtn.className = "w-full bg-red-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+
     const td6 = document.createElement('td');
-    td6.appendChild(exBtn); 
+    td6.append(exBtn, updateBtn, delBtn); 
     
     tr.append(td1,td2,td3,td4,td5,td6);
 
@@ -747,19 +770,6 @@ addBtn.addEventListener('click', e=>{
 })
 
 
-updateBtn.addEventListener('click', e=>{
-    const overlay = document.getElementById('overlay');
-    overlay.classList.remove('hidden');
-
-    document.getElementById('auLegend').textContent = 'Update a unit';
-
-    document.getElementById('auBtn').textContent = 'Update';
-    
-})
-
-delBtn.addEventListener('click', e=>{
-    
-})
 
 visBtn.addEventListener('click', e=>{
     
@@ -772,6 +782,76 @@ auForm.addEventListener('submit', e=>{
 })
 
 
+let bc = 0; //button counter
+while (bc < data[courseDir[selectedCourse]].length){
+
+  const exb = document.getElementById(`exBtn${bc}`); 
+  exb.addEventListener('click', e=>{
+    e.preventDefault();
+    try {
+      const idArr = exb.id.split(',');
+      // const index = Number(idArr[-1]); //exBtn0 -> 0  
+      const index = parseInt(idArr[-1]); //exBtn0 -> 0  
+
+      const chapter = data[courseDir[selectedCourse]][index];
+      ///examinate logic
+      const tb = document.getElementsByClassName('');
+    } catch(err){
+      console.error(err.message);
+
+    }
+  })
+
+  const updateBtn = document.getElementById(`updateBtn${bc}`); 
+  updateBtn.addEventListener('click', e=>{
+    e.preventDefault();
+    const overlay = document.getElementById('overlay');
+    overlay.classList.remove('hidden');
+
+    document.getElementById('auLegend').textContent = 'Update a unit';
+
+    document.getElementById('auBtn').textContent = 'Update';
+
+    //user submitted form
+    const name = document.getElementById('unitName');
+    const def = document.getElementById('unitDef');
+    const pur = document.getElementById('unitPurpose');
+    const pos = document.getElementById('unitPos');
+    const ref = document.getElementById('unitRef');
+
+    const idArr = updateBtn.id.split(',');
+    const index = parseInt(idArr[-1]); //updateBtn0 -> 0  
+
+    td1 = document.getElementById(`knowledgeUnit${index}`);
+    td2 = document.getElementById(`definition${index}`);
+    td3 = document.getElementById(`purpose${index}`);
+    td4 = document.getElementById(`position${index}`);
+    td5 = document.getElementById(`references${index}`);
+
+    td1.textContent = name;
+    td2.textContent = def;
+    td3.textContent = pur; 
+    td4.textContent = pos;
+    td5.textContent = ref; 
+  })
+
+  const delBtn = document.getElementById(`delBtn${bc}`); 
+  delBtn.addEventListener('click', e=>{
+    e.preventDefault();
+
+    const idArr = delBtn.id.split(',');
+    const index = parseInt(idArr[-1]); //updateBtn0 -> 0  
+
+    tr = document.getElementById(`tR${index}`);
+    tbody.removeChild(tr);
+
+    data[courseDir[selectedCourse]].splice(index, 1);
+    
+  })
+
+  bc++;
+
+}
 
 
 
