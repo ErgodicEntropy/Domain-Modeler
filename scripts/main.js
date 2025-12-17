@@ -692,6 +692,7 @@ const auForm  = document.getElementById('auForm');
 
 
 addBtn.addEventListener('click', e=>{
+    e.preventDefault();
     counter++;
     const overlay = document.getElementById('overlay');
     overlay.classList.remove('hidden');
