@@ -701,87 +701,79 @@ addBtn.addEventListener('click', e=>{
 
     document.getElementById('auBtn').textContent = 'Add';
 
-    const name = document.getElementById('unitName');
-    const def = document.getElementById('unitDef');
-    const pur = document.getElementById('unitPurpose');
-    const pos = document.getElementById('unitPos');
-    const ref = document.getElementById('unitRef');
+    auForm.addEventListener('submit', e=>{
+      e.preventDefault(); 
+  
+      const name = document.getElementById('unitName');
+      const def = document.getElementById('unitDef');
+      const pur = document.getElementById('unitPurpose');
+      const pos = document.getElementById('unitPos');
+      const ref = document.getElementById('unitRef');
+  
+      const tr = document.createElement('tr');
+      tr.className = "even:bg-gray-100 hover:bg-gray-200"; 
+      tr.id = `tR${counter}`; 
+  
+      const td1 = document.createElement('td');
+      td1.textContent = name;
+      td1.className = "px-4 py-2 border border-gray-200";
+      td1.id = `knowledgeUnit${counter}`; 
+  
+      const td2 = document.createElement('td');
+      td2.textContent = def;
+      td2.className = "px-4 py-2 border border-gray-200";
+      td2.id = `definition${counter}`; 
+  
+      const td3 = document.createElement('td');
+      td3.textContent = pur;
+      td3.className = "px-4 py-2 border border-gray-200";
+      td3.id = `purpose${counter}`; 
+  
+      const td4 = document.createElement('td');
+      td4.textContent = pos;
+      td4.className = "px-4 py-2 border border-gray-200";
+      td4.id = `position${counter}`; 
+  
+      const td5 = document.createElement('td');
+      const a = document.createElement('a'); 
+      a.href = ref; 
+      a.textContent = ref; 
+      a.target = '_blank';
+      td5.appendChild(a);
+      td5.className = "px-4 py-2 border border-gray-200";
+      td5.id = `reference${counter}`; 
+  
+  
+      //action buttons
+      const exBtn = document.createElement('button');
+      exBtn.id = `exBtn${counter}`; 
+      exBtn.textContent = "Examinate";
+      exBtn.setAttribute('type', 'button');
+      exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+  
+      const updateBtn = document.createElement('button');
+      updateBtn.id = `updateBtn${counter}`;
+      updateBtn.textContent = "Update";
+      updateBtn.setAttribute('type', 'button');
+      updateBtn.className = "w-full bg-purple-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+  
+      const delBtn = document.createElement('button');
+      delBtn.id = `delBtn${counter}`;
+      delBtn.textContent = "Delete";
+      delBtn.setAttribute('type', 'button');
+      delBtn.className = "w-full bg-red-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+  
+      const td6 = document.createElement('td');
+      td6.append(exBtn, updateBtn, delBtn); 
+      
+      tr.append(td1,td2,td3,td4,td5,td6);
+  
+      tbody.appendChild(tr); 
+  
+      data[courseDir[selectedCourse]].push({knowledgeUnit: name, definition: def, purpose: pur, position: pos, references: ref});
+    })
 
-    const tr = document.createElement('tr');
-    tr.className = "even:bg-gray-100 hover:bg-gray-200"; 
-    tr.id = `tR${counter}`; 
-
-    const td1 = document.createElement('td');
-    td1.textContent = name;
-    td1.className = "px-4 py-2 border border-gray-200";
-    td1.id = `knowledgeUnit${counter}`; 
-
-    const td2 = document.createElement('td');
-    td2.textContent = def;
-    td2.className = "px-4 py-2 border border-gray-200";
-    td2.id = `definition${counter}`; 
-
-    const td3 = document.createElement('td');
-    td3.textContent = pur;
-    td3.className = "px-4 py-2 border border-gray-200";
-    td3.id = `purpose${counter}`; 
-
-    const td4 = document.createElement('td');
-    td4.textContent = pos;
-    td4.className = "px-4 py-2 border border-gray-200";
-    td4.id = `position${counter}`; 
-
-    const td5 = document.createElement('td');
-    const a = document.createElement('a'); 
-    a.href = ref; 
-    a.textContent = ref; 
-    a.target = '_blank';
-    td5.appendChild(a);
-    td5.className = "px-4 py-2 border border-gray-200";
-    td5.id = `reference${counter}`; 
-
-
-    //action buttons
-    const exBtn = document.createElement('button');
-    exBtn.id = `exBtn${counter}`; 
-    exBtn.textContent = "Examinate";
-    exBtn.setAttribute('type', 'button');
-    exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
-
-    const updateBtn = document.createElement('button');
-    updateBtn.id = `updateBtn${counter}`;
-    updateBtn.textContent = "Update";
-    updateBtn.setAttribute('type', 'button');
-    updateBtn.className = "w-full bg-purple-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
-
-    const delBtn = document.createElement('button');
-    delBtn.id = `delBtn${counter}`;
-    delBtn.textContent = "Delete";
-    delBtn.setAttribute('type', 'button');
-    delBtn.className = "w-full bg-red-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
-
-    const td6 = document.createElement('td');
-    td6.append(exBtn, updateBtn, delBtn); 
-    
-    tr.append(td1,td2,td3,td4,td5,td6);
-
-    tbody.appendChild(tr); 
-
-    data[courseDir[selectedCourse]].push({knowledgeUnit: name, definition: def, purpose: pur, position: pos, references: ref});
 })
-
-
-
-visBtn.addEventListener('click', e=>{
-    
-})
-
-
-
-auForm.addEventListener('submit', e=>{
-    e.preventDefault(); 
-})
-
 
 let bc = 0; //button counter
 while (bc < data[courseDir[selectedCourse]].length){
@@ -795,8 +787,12 @@ while (bc < data[courseDir[selectedCourse]].length){
       const index = parseInt(idArr[-1]); //exBtn0 -> 0  
 
       const chapter = data[courseDir[selectedCourse]][index];
-      ///examinate logic
-      const tb = document.getElementsByClassName('');
+
+      window.localStorage.setItem('chapter', JSON.stringify(chapter));
+
+      setTimeout(()=>{
+        window.location.href = 'exam.html'; 
+      }, 3000)
     } catch(err){
       console.error(err.message);
 
@@ -813,28 +809,32 @@ while (bc < data[courseDir[selectedCourse]].length){
 
     document.getElementById('auBtn').textContent = 'Update';
 
-    //user submitted form
-    const name = document.getElementById('unitName');
-    const def = document.getElementById('unitDef');
-    const pur = document.getElementById('unitPurpose');
-    const pos = document.getElementById('unitPos');
-    const ref = document.getElementById('unitRef');
-
-    const idArr = updateBtn.id.split(',');
-    const index = parseInt(idArr[-1]); //updateBtn0 -> 0  
-
-    td1 = document.getElementById(`knowledgeUnit${index}`);
-    td2 = document.getElementById(`definition${index}`);
-    td3 = document.getElementById(`purpose${index}`);
-    td4 = document.getElementById(`position${index}`);
-    td5 = document.getElementById(`references${index}`);
-
-    td1.textContent = name;
-    td2.textContent = def;
-    td3.textContent = pur; 
-    td4.textContent = pos;
-    td5.textContent = ref; 
+    auForm.addEventListener('submit', e=>{
+      e.preventDefault();   
+      //user submitted form
+      const name = document.getElementById('unitName');
+      const def = document.getElementById('unitDef');
+      const pur = document.getElementById('unitPurpose');
+      const pos = document.getElementById('unitPos');
+      const ref = document.getElementById('unitRef');
+  
+      const idArr = updateBtn.id.split(',');
+      const index = parseInt(idArr[-1]); //updateBtn0 -> 0  
+  
+      td1 = document.getElementById(`knowledgeUnit${index}`);
+      td2 = document.getElementById(`definition${index}`);
+      td3 = document.getElementById(`purpose${index}`);
+      td4 = document.getElementById(`position${index}`);
+      td5 = document.getElementById(`references${index}`);
+  
+      td1.textContent = name;
+      td2.textContent = def;
+      td3.textContent = pur; 
+      td4.textContent = pos;
+      td5.textContent = ref; 
+    })
   })
+
 
   const delBtn = document.getElementById(`delBtn${bc}`); 
   delBtn.addEventListener('click', e=>{
@@ -855,5 +855,15 @@ while (bc < data[courseDir[selectedCourse]].length){
 }
 
 
+visBtn.addEventListener('click', e=>{
+  e.preventDefault();    
 
-window.localStorage.setItem('data', JSON.stringify(data));
+  window.localStorage.setItem('course', JSON.stringify(course));
+
+  setTimeout(()=>{
+        window.location.href = 'graph.html'; 
+      }, 3000)
+
+})
+
+//refactor this codebase: fix data variable redundancy, add error handling in event blocks

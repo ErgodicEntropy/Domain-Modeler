@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta>
+    <title>E-Learning Platform</title>
+    <script src="../scripts/exam.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto px-4 mt-4">
+        <nav class="flex items-center justify-between bg-white p-3 rounded-lg shadow-md mb-6">
+            <a href=""><img src="../data/Images/images.jpeg" alt="emsiLogo" class="h-10 w-auto"></a>
+            <a href="/dashboard.html" target="_blank" class="text-gray-700 hover:text-blue-200 font-medium">Dashboard</a>
+            <a id="userNav" href="/myProfile.html" class="text-black bg-green-500 px-3 py-1 font-medium hover:text-blue-500"></a>
+            <a href="/logout.html" class="text-white bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md transition duration-200">Log out</a>
+        </nav>
+    </div>
+    <h1 class="text-3xl text-center font-bold text-gray-800 mb-2">Course Handler</h1>
+    <p class="text-gray-700 text-center text-base mb-6">This platform helps you dissect your course into modular examinable elements</p>
+    <div class="mb-6 border-4 border-collapse">
+        <button id="addBtn" type="button" class="bg-green-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-200">Add</button>
+        <button id="visBtn" type="button" class="bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-200">Visualize</button>
+    </div>
+    
+    <div id="overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center hidden z-[2000]">
+        <form id="auForm" class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md z-[2001]">
+            <fieldset class="border border-gray-300 rounded-xl p-4 mb-6">
+                <legend id="auLegend" class="text-lg text-center font-semibold text-gray-800 mb-2"></legend>
+    
+                <div class="mb-4">
+                    <label for="htmlEmail" class="block text-sm font-medium text-gray-700 mb-1">
+                        <span class="text-sm font-medium text-gray-700">Unit</span>
+                        <input type="text" id="unitName" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+         transition duration-150" required>
+                    </label>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="htmlEmail" class="block text-sm font-medium text-gray-700 mb-1">
+                        <span class="text-sm font-medium text-gray-700">Definition</span>
+                        <input type="text" id="unitDef" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+         transition duration-150">
+                    </label>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="htmlEmail" class="block text-sm font-medium text-gray-700 mb-1">
+                        <span class="text-sm font-medium text-gray-700">Purpose</span>
+                        <input type="text" id="unitPurpose" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+         transition duration-150">
+                    </label>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="htmlEmail" class="block text-sm font-medium text-gray-700 mb-1">
+                        <span class="text-sm font-medium text-gray-700">Position</span>
+                        <input type="text" id="unitPos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+         transition duration-150">
+                    </label>
+                </div>
+    
+                <div class="mb-4">
+                    <label for="htmlEmail" class="block text-sm font-medium text-gray-700 mb-1">
+                        <span class="text-sm font-medium text-gray-700">References</span>
+                        <input type="text" id="unitRef" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+         transition duration-150">
+                    </label>
+                </div>
+    
+            </fieldset>
+            <button id="auBtn" class="w-full bg-blue-500 text-white px-6 py-2 rounded-md font-medium
+         hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+         transition duration-200" type="submit">Upload Answers</button>
+            <button id="auBtn" class="w-full bg-blue-500 text-white px-6 py-2 rounded-md font-medium
+         hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+         transition duration-200" type="submit">Submit Answers</button>
+            <button id="auBtn" class="w-full bg-blue-500 text-white px-6 py-2 rounded-md font-medium
+         hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+         transition duration-200" type="submit">Correct Me</button>
+
+        </form>
+    </div>
+    <!-- table sorted by weight importance of a given knowledge unit -->
+    <div class="mb-4">
+        <table id="knowledgeTable" class="min-w-full border-4 border-gray-800 border-collapse text-left">
+            <thead class="bg-green-500 text-white">
+                <tr>
+                    <!-- Knowledge Unit is a building block of a course that is to be learned e.g., C++ OOP course has; OOP principles, virtual functions, etc  -->
+                    <th class="px-4 py-2 border border-gray-200">Unit</th>
+                    <!-- Definition of the knowledge unit e.g., operator overlaoding is... -->
+                    <th class="px-4 py-2 border border-gray-200">Definition</th>
+                    <!-- (Why does it exist? what problem does it solve?) -->
+                    <th class="px-4 py-2 border border-gray-200">Purpose</th>
+                    <!-- previous knowledge unit (prerequisite) and next knowledge unit (postrequisite)-->
+                    <th class="px-4 py-2 border border-gray-200">Position</th>           
+                    <!-- web links for more info -->
+                    <th class="px-4 py-2 border border-gray-200">References</th>
+                    <!--  -->
+                    <th class="px-4 py-2 border border-gray-200">Action</th>
+                    <!-- <th class="px-4 py-2 border border-gray-200">Action</th> -->
+                </tr>
+            </thead>
+
+            <tbody id="knowledgeTableB">
+            </tbody>
+
+            </table>
+
+        </div>
+    
+</body>
+
+</html>
