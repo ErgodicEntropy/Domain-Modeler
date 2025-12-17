@@ -13,7 +13,11 @@
 5. Handle examination per course: code -> simulation box, text -> paragraphs, etc
 6. Dashboard for student modeling
 7. Add database in the backend (mysqli php)
-8. create branch: git branch -m -> two branches: one for client-side only (js) and the other for client-side and server side (js+php mysql)
+8. create branch (optional): git branch -m -> two branches: one for client-side only (js) and the other for client-side and server side (js+php mysql)
+    1. Instead of branching out, do this to move between client-side and server-side:
+        1. remove or add method and action to forms
+        2. comment or decomment js e.preventDefaults and window.location.hrefs
+        3. run xampp apache/sql servers (localhost/project/files with project in xampp/htdocs) or run from vsc lifeserver
 ### System Requirements
 
 Authentification
