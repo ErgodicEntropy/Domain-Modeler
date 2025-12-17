@@ -1,17 +1,13 @@
 <?php
 
-$us = $_POST["username"];
-$age = $_POST["age"];
-$lang = $_POST["language"];
+$em = $_POST["email"];
+$ps = $_POST["password"];
 
-
-if (!isset($us) || !isset($age) || !isset($lang)){
+if (!isset($em) || !isset($ps)){
     die("invalid request! try again");
 } else {
     echo "valid request!";
 }
-
-
 
 $servername = "localhost";
 $username   = "root";
@@ -27,15 +23,14 @@ if ($cnx->connect_error){
     echo "connected successfully!"; 
 }
 
-$prep = $cnx->prepare("INSERT INTO Students (username, birth, lang) VALUES(?,?,?)"); 
-$prep->bind_param("sds", $us, $age, $lang);
-
-$prep->execute();
-$prep->close();
+$check = "SELECT email FROM Students;";
+if ($cnx->query($check)){
+    
+}
 
 
 $cnx->close();
-header("Location: ../templates/home.html"); 
+header("Location: ../templates/profile.html"); 
 exit; 
 ?>
 

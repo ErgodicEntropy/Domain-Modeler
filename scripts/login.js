@@ -4,7 +4,7 @@ const email = document.getElementById('em');
 const password = document.getElementById('ps');
 
 loginForm.addEventListener('submit', e=>{
-    e.preventDefault();
+    // e.preventDefault();
     if (email.value == "emsi123@app.com" && password.value == "emsi123"){
         Swal.fire({
             title: "Log In!",
@@ -14,10 +14,10 @@ loginForm.addEventListener('submit', e=>{
         window.localStorage.setItem('email', email);
         window.localStorage.setItem('password', password);
     
-        setTimeout(() => {
-            window.location.href = 'profile.html'}
+        // setTimeout(() => {
+        //     window.location.href = 'profile.html'}
             
-        , 3000); 
+        // , 3000); 
     } else {
         Swal.fire({
             icon: "error",

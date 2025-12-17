@@ -14,11 +14,10 @@ if (!isset($email) || !isset($password)){
 $servername = "localhost";
 $username   = "root";
 $password   = "";        // empty by default in XAMPP
-$dbname     = "emsi";    // database you want
-$port       = 3306;      // default MySQL port
+$dbname     = "EMSIDB";    // database you want
 
 
-$cnx = new mysqli($servername, $username, $password, $dbname, $port); 
+$cnx = new mysqli($servername, $username, $password, $dbname); 
 
 $hashedPass = password_hash($password, PASSWORD_DEFAULT);
 
@@ -42,7 +41,7 @@ $prep->close();
 
 $cnx->close();
 
-header("Location: profile.html"); 
+header("Location: ../templates/profile.html"); 
 
 exit; 
 
