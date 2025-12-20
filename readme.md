@@ -18,6 +18,7 @@
         1. remove or add method and action to forms
         2. comment or decomment js e.preventDefaults and window.location.hrefs
         3. run xampp apache/sql servers (localhost/project/files with project in xampp/htdocs) or run from vsc lifeserver
+9. Add TD/TP table/graph part to the project
 ### System Requirements
 
 Authentification
