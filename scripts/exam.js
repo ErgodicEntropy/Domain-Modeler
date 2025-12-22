@@ -17,7 +17,6 @@ const prompt = new PromptTemplate({
   inputVariables: ["chapter"],
 });
 
-// Create chain
 const chain = new LLMChain({
   llm: cohere,
   prompt: prompt,

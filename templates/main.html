@@ -4,8 +4,11 @@
     <meta>
     <title>E-Learning Platform</title>
     <script src="../scripts/main.js" defer></script>
+    <script src="../scripts/export.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
      <script src="https://cdn.tailwindcss.com"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body class="bg-gray-100 p-8">
     <div class="max-w-6xl mx-auto px-4 mt-4">
@@ -25,7 +28,7 @@
         <button id="visBtn" type="button" class="bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-200">Visualize</button>
         <div>
             <label>
-                <button id="visBtn" type="button" class="bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-200">Export</button>
+                <button id="exportBtn" type="button" class="bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-200">Export</button>
                 <select>
                     <option value="" disabled selected>Select a Format</option>
                     <option value="pdf">PDF</option>
