@@ -1,7 +1,8 @@
 const course = JSON.parse(window.localStorage.getItem('course'));
 
 const labels = course.map(c => c.knowledgeUnit);
-const values = course.map(c => c.references.length);
+// const values = course.map(c => c.references.length);
+const values = course.map(c => course.length - course.indexOf(c)); 
 
 new Chart(document.getElementById("barChart"), {
   type: "bar",
