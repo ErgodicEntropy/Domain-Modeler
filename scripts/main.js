@@ -28,7 +28,7 @@ course.forEach((chapter, index) => {
     td3.id = `purpose${index}`; 
 
     const td4 = document.createElement('td');
-    const preqs = course.filter(chapter=>{chapter.prerequisites.includes(course.indexOf(chapter))}).map(chapter=>chapter.knowledgeUnit).toString(); 
+    const preqs = course.filter(c=>c.prerequisites.includes(course.indexOf(chapter))).map(c=>c.knowledgeUnit).toString(); //.join(",")
     td4.textContent = (preqs || "");
     td4.className = "px-4 py-2 border border-gray-200";
     td4.id = `prerequisites${index}`; 
@@ -143,14 +143,8 @@ course.forEach((chapter, index) => {
     //   }
     // })
 
-    const invBtn = document.createElement('button');
-    invBtn.id = `invBtn${index}`;
-    invBtn.textContent = "👥"; //👥
-    invBtn.setAttribute('type','button');
-    invBtn.className = "bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-200"; 
-
     const td6 = document.createElement('td');
-    td6.append(exBtn, updateBtn, delBtn, invBtn); 
+    td6.append(exBtn, updateBtn, delBtn); 
 
     tr.append(td1,td2,td3,td4,td5,td6);
 
@@ -167,7 +161,7 @@ const auForm  = document.getElementById('auForm');
 
 addBtn.addEventListener('click', e=>{
     e.preventDefault();
-    let counter = course.length + 1;
+    let counter = course.length;
     const overlay = document.getElementById('overlay');
     overlay.classList.remove('hidden');
 
@@ -181,7 +175,7 @@ addBtn.addEventListener('click', e=>{
         const name = document.getElementById('unitName').value;
         const def = document.getElementById('unitDef').value;
         const pur = document.getElementById('unitPurpose').value;
-        const pos = document.getElementById('unitPos').value;
+        const preqs = document.getElementById('unitPos').value;
         const ref = document.getElementById('unitRef').value;
     
         const tr = document.createElement('tr');
@@ -204,7 +198,6 @@ addBtn.addEventListener('click', e=>{
         td3.id = `purpose${counter}`; 
     
         const td4 = document.createElement('td');
-        const preqs = course.filter(chapter=>{chapter.prerequisites.includes(course.indexOf(chapter))}).map(chapter=>chapter.knowledgeUnit).toString(); 
         td4.textContent = preqs ?? "";
         td4.className = "px-4 py-2 border border-gray-200";
         td4.id = `prerequisites${counter}`; 
@@ -238,25 +231,16 @@ addBtn.addEventListener('click', e=>{
         delBtn.textContent = "Delete";
         delBtn.setAttribute('type', 'button');
         delBtn.className = "w-full bg-red-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
-  
-        const invBtn = document.createElement('button');
-        invBtn.id = `invBtn${counter}`;
-        invBtn.textContent = "👥"; //👥
-        invBtn.setAttribute('type','button');
-        invBtn.className = "bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-200"; 
-  
-    
+      
         const td6 = document.createElement('td');
-        td6.append(exBtn, updateBtn, delBtn, invBtn); 
+        td6.append(exBtn, updateBtn, delBtn); 
         
         tr.append(td1,td2,td3,td4,td5,td6);
     
         tbody.appendChild(tr); 
     
-        course.push({knowledgeUnit: name, definition: def, purpose: pur, position: pos, references: ref});
+        course.push({knowledgeUnit: name, definition: def, purpose: pur, prerequisites:preqs, references: ref});
   
-        overlay.classList.add('hidden');
-
         Swal.fire({
             title: "Added!",
             text: "New chapter added successfully!",
@@ -269,6 +253,10 @@ addBtn.addEventListener('click', e=>{
               title: 'Oops...',
               text: err.message || 'Something went wrong!',
         });
+      } finally {
+        setTimeout(()=>{
+          overlay.classList.add('hidden');
+        },1000)
       }
 
     })
