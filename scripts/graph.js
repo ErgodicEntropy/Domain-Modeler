@@ -1,62 +1,59 @@
-const course = JSON.parse(window.localStorage.getItem('course'));
+const course = JSON.parse(window.localStorage.getItem('course')); 
 
-const nodes = course.map((item, index) => ({
-  id: index,
-  label: item.knowledgeUnit,
-  title: `
-    <b>${item.knowledgeUnit}</b><br>
-    ${item.definition}<br><br>
-    <i>${item.purpose}</i>
-  `,
-  shape: "box"
-}));
-
-const edges = [];
-
-function findIndexByName(name) {
-  return course.findIndex(c =>
-    c.knowledgeUnit.toLowerCase() === name.toLowerCase()
-  );
-}
-
-course.forEach((item, index) => {
-  if (!item.position) return;
-
-  const match = item.position.match(/Après (les |la |l’|l')?(.*)\./i); //using regex
-
-  if (match) {
-    const dependencyName = match[2];
-    const fromIndex = findIndexByName(dependencyName);
-
-    if (fromIndex !== -1) {
-      edges.push({
-        from: fromIndex,
-        to: index,
-        arrows: "to"
-      });
+const nodes = course.map((chapter,index) => (
+    {
+        id: index, 
+        label: chapter.knowledgeUnit,
+        title: `
+            <b>${chapter.knowledgeUnit}</b><br>
+            ${chapter.definition}<br><br>
+            <i>${chapter.purpose}</i>
+        `,
+        shape: "box"
     }
-  }
+));
+
+//this function determines if there is an edge between two nodes or not -> prerequisite logic
+
+const edges = []
+
+course.forEach((chapter, index) => {
+        const preqs  = chapter.prerequisites; //chapter object key with a value as an array of indices of prerequisite chapters ('before' relationship)
+        for (let k = 0; k < preqs.length; k++){
+            edges.push({
+                from:preqs[k],
+                to: index,
+                arrow: "to"
+            })
+        }
 });
 
-const container = document.getElementById("graph");
+
+//construction
+const container = document.getElementById('graph');
+
 const data = {
-  nodes: new vis.DataSet(nodes),
-  edges: new vis.DataSet(edges)
-};
+    nodes: new vis.Dataset(nodes),
+    edges: new vis.Dataset(edges)
+}
 
 const options = {
-  layout: {
-    hierarchical: {
-      direction: "UD",
-      sortMethod: "directed"
-    }
-  },
-  physics: false,
-  interaction: {
-    hover: true
-  }
-};
+    autoResize: true,
+    height: '100%',
+    width: '100%',
+    layout: {
+        hierarchical: {
+            direction: "UD",
+            sortMethod: "directed"
+        }
+    },
+    physics: false,
+    interaction: {
+        hover:true
+    },
+    // manipulation:{
 
-new vis.Network(container, data, options);
+    // }
+}
 
-
+new vis.Network(container, data, options); 

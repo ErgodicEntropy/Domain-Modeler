@@ -1,76 +1,57 @@
-const domainModel = JSON.parse(window.localStorage.getItem('data'));
 const username = window.localStorage.getItem('username');
 
 const a = document.getElementById('userNav');
 a.textContent = username;
 
-const courseDir = {
-    "cpp":0, 
-    "php":1,
-    "uml":2,
-    "net":3, 
-    "webdev":4,
-    "comp":5,
-    "sql":6,
-    "unix":7
-}
-
-const selectedCourse = window.localStorage.getItem('selectedCourse');
-
-const courseIndex = courseDir[selectedCourse];
-
-const course = domainModel[courseIndex]; 
-
-window.localStorage.setItem('course', JSON.stringify(course));
+const course = JSON.parse(window.localStorage.getItem('course')); 
 
 const tbody = document.getElementById('knowledgeTableB'); 
 
-let counter = 0; //number of chapters in our course
-
-course.forEach(k => {
+course.forEach((chapter, index) => {
     const tr = document.createElement('tr');
     tr.className = "even:bg-gray-100 hover:bg-gray-200"; 
-    tr.id = `tR${counter}`; 
+    tr.id = `tR${index}`; 
 
     const td1 = document.createElement('td');
-    td1.textContent = k.knowledgeUnit;
+    td1.textContent = chapter.knowledgeUnit;
     td1.className = "px-4 py-2 border border-gray-200";
-    td1.id = `knowledgeUnit${counter}`; 
+    td1.id = `knowledgeUnit${index}`; 
 
     const td2 = document.createElement('td');
-    td2.textContent = k.definition;
+    td2.textContent = chapter.definition;
     td2.className = "px-4 py-2 border border-gray-200";
-    td2.id = `definition${counter}`; 
+    td2.id = `definition${index}`; 
 
     const td3 = document.createElement('td');
-    td3.textContent = k.purpose;
+    td3.textContent = chapter.purpose;
     td3.className = "px-4 py-2 border border-gray-200";
-    td3.id = `purpose${counter}`; 
+    td3.id = `purpose${index}`; 
 
     const td4 = document.createElement('td');
-    td4.textContent = k.position;
+    const preqs = course.filter(chapter=>{chapter.prerequisites.includes(course.indexOf(chapter))}).map(chapter=>chapter.knowledgeUnit).toString(); 
+    td4.textContent = (preqs || "");
     td4.className = "px-4 py-2 border border-gray-200";
-    td4.id = `position${counter}`; 
+    td4.id = `prerequisites${index}`; 
 
     const td5 = document.createElement('td');
     const a = document.createElement('a'); 
-    a.href = k.references[0]; 
-    a.textContent = k.references[0]; 
+    a.href = chapter.references[0]; 
+    a.textContent = chapter.references[0]; 
     a.target = '_blank';
     td5.appendChild(a);
     td5.className = "px-4 py-2 border border-gray-200";
-    td5.id = `reference${counter}`; 
+    td5.id = `references${index}`; 
 
 
     //action buttons
     const exBtn = document.createElement('button');
-    exBtn.id = `exBtn${counter}`; 
+    exBtn.id = `exBtn${index}`; 
     exBtn.textContent = "Examinate";
     exBtn.setAttribute('type', 'button');
     exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
 
     const updateBtn = document.createElement('button');
-    updateBtn.id = `updateBtn${counter}`;
+    updateBtn.id = `updateBtn${index}`;
     updateBtn.textContent = "Update";
     updateBtn.setAttribute('type', 'button');
     updateBtn.className = "w-full bg-purple-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
@@ -132,7 +113,7 @@ course.forEach(k => {
 
 
     const delBtn = document.createElement('button');
-    delBtn.id = `delBtn${counter}`;
+    delBtn.id = `delBtn${index}`;
     delBtn.textContent = "Delete";
     delBtn.setAttribute('type', 'button');
     delBtn.className = "w-full bg-red-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
@@ -163,7 +144,7 @@ course.forEach(k => {
     // })
 
     const invBtn = document.createElement('button');
-    invBtn.id = `invBtn${counter}`;
+    invBtn.id = `invBtn${index}`;
     invBtn.textContent = "👥"; //👥
     invBtn.setAttribute('type','button');
     invBtn.className = "bg-purple-500 text-white py-2 px-6 rounded-md hover:bg-blue-600 transition duration-200"; 
@@ -175,7 +156,6 @@ course.forEach(k => {
 
     tbody.appendChild(tr); 
 
-    ++counter; 
 });
 
 
@@ -187,7 +167,7 @@ const auForm  = document.getElementById('auForm');
 
 addBtn.addEventListener('click', e=>{
     e.preventDefault();
-    counter++;
+    let counter = course.length + 1;
     const overlay = document.getElementById('overlay');
     overlay.classList.remove('hidden');
 
@@ -224,9 +204,11 @@ addBtn.addEventListener('click', e=>{
         td3.id = `purpose${counter}`; 
     
         const td4 = document.createElement('td');
-        td4.textContent = pos;
+        const preqs = course.filter(chapter=>{chapter.prerequisites.includes(course.indexOf(chapter))}).map(chapter=>chapter.knowledgeUnit).toString(); 
+        td4.textContent = preqs ?? "";
         td4.className = "px-4 py-2 border border-gray-200";
-        td4.id = `position${counter}`; 
+        td4.id = `prerequisites${counter}`; 
+
     
         const td5 = document.createElement('td');
         const a = document.createElement('a'); 
