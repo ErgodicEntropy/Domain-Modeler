@@ -231,37 +231,32 @@ function renderTable(sc){
           exBtn.setAttribute('type', 'button');
           exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
     
-          // const exb = document.getElementById(`exBtn${bc}`); 
-          // exb.addEventListener('click', e=>{
-          //     e.preventDefault();
-          //     try {
-          //       const idArr = exb.id.split(',');
-          //       // const index = Number(idArr[-1]); //exBtn0 -> 0  
-          //       const index = parseInt(idArr[-1]); //exBtn0 -> 0  
+          exBtn.addEventListener('click', e=>{
+              e.preventDefault();
+              try {
+                const chapter = course[index];
     
-          //       const chapter = course[index];
+                window.localStorage.setItem('chapter', JSON.stringify(chapter));
     
-          //       window.localStorage.setItem('chapter', JSON.stringify(chapter));
-    
-          //       Swal.fire({
-          //         title: "Quiz!",
-          //         text: "Preparing Exam...Please Wait",
-          //         icon: "success"
-          //       });  
+                Swal.fire({
+                  title: "Quiz!",
+                  text: "Preparing Exam...Please Wait",
+                  icon: "success"
+                });  
                 
-          //       setTimeout(()=>{
-          //         window.location.href = 'exam.html'; 
-          //       }, 3000)
+                setTimeout(()=>{
+                  window.location.href = 'exam.html'; 
+                }, 3000)
                 
-          //     } catch(err){
-          //         Swal.fire({
-          //               icon: 'error',
-          //               title: 'Oops...',
-          //               text: err.message || 'Something went wrong!',
-          //         });
+              } catch(err){
+                  Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: err.message || 'Something went wrong!',
+                  });
     
-          //     }
-          //   })
+              }
+            })
       
           const updateBtn = document.createElement('button');
           updateBtn.id = `updateBtn${index}`;
@@ -269,60 +264,60 @@ function renderTable(sc){
           updateBtn.setAttribute('type', 'button');
           updateBtn.className = "w-full bg-purple-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
       
-        //   updateBtn.addEventListener('click', e=>{
-        //   e.preventDefault();
-        //   try {  
-        //     const overlay = document.getElementById('overlay');
-        //     overlay.classList.remove('hidden');
+          updateBtn.addEventListener('click', e=>{
+          e.preventDefault();
+          try {  
+            const overlay = document.getElementById('overlay');
+            overlay.classList.remove('hidden');
         
-        //     document.getElementById('auLegend').textContent = 'Update a unit';
+            document.getElementById('auLegend').textContent = 'Update a unit';
         
-        //     document.getElementById('auBtn').textContent = 'Update';
+            document.getElementById('auBtn').textContent = 'Update';
       
-        //     document.getElementById('auForm').addEventListener('submit', e=>{
-        //     e.preventDefault();   
-        //     try {
-        //       //user submitted form
-        //       const name = document.getElementById('unitName').value;
-        //       const def = document.getElementById('unitDef').value;
-        //       const pur = document.getElementById('unitPurpose').value;
-        //       const pos = document.getElementById('unitPos').value;
-        //       const ref = document.getElementById('unitRef').value;
+            document.getElementById('auForm').addEventListener('submit', e=>{
+            e.preventDefault();   
+            try {
+              //user submitted form
+              const name = document.getElementById('unitName').value;
+              const def = document.getElementById('unitDef').value;
+              const pur = document.getElementById('unitPurpose').value;
+              const pos = document.getElementById('unitPos').value;
+              const ref = document.getElementById('unitRef').value;
                 
-        //       td1.textContent = name;
-        //       td2.textContent = def;
-        //       td3.textContent = pur; 
-        //       td4.textContent = pos;
-        //       td5.textContent = ref; 
+              td1.textContent = name;
+              td2.textContent = def;
+              td3.textContent = pur; 
+              td4.textContent = pos;
+              td5.textContent = ref; 
       
       
-        //       Swal.fire({
-        //         title: "Update!",
-        //         text: "Chapter updated successfully!",
-        //         icon: "success"
-        //       });
+              Swal.fire({
+                title: "Update!",
+                text: "Chapter updated successfully!",
+                icon: "success"
+              });
               
-        //       overlay.classList.add('hidden');
+              overlay.classList.add('hidden');
       
-        //     } catch(err){
-        //       Swal.fire({
-        //             icon: 'error',
-        //             title: 'Oops...',
-        //             text: err.message || 'Something went wrong!',
-        //       });
+            } catch(err){
+              Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message || 'Something went wrong!',
+              });
       
-        //     }
+            }
       
-        //   })  
-        //   } catch(err){
-        //       Swal.fire({
-        //             icon: 'error',
-        //             title: 'Oops...',
-        //             text: err.message || 'Something went wrong!',
-        //       });
-        //   }
+          })  
+          } catch(err){
+              Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message || 'Something went wrong!',
+              });
+          }
         
-        // })
+        })
       
       
           const delBtn = document.createElement('button');
@@ -331,30 +326,30 @@ function renderTable(sc){
           delBtn.setAttribute('type', 'button');
           delBtn.className = "w-full bg-red-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
       
-          // delBtn.addEventListener('click', e=>{
-          // e.preventDefault();
-          // try {
-          //   const id  = tr.dataset.id;
+          delBtn.addEventListener('click', e=>{
+          e.preventDefault();
+          try {
+            const id  = tr.dataset.id;
       
-          //   tr.remove();
+            tr.remove();
       
-          //   course.filter(c => c.id !== id); 
+            course.filter(c => c.id !== id); 
       
-          //   Swal.fire({
-          //       title: "Deletion!",
-          //       text: "Chapter deleted successfully!",
-          //       icon: "success"
-          //     });  
+            Swal.fire({
+                title: "Deletion!",
+                text: "Chapter deleted successfully!",
+                icon: "success"
+              });  
       
-          // } catch(err){
-          //     Swal.fire({
-          //           icon: 'error',
-          //           title: 'Oops...',
-          //           text: err.message || 'Something went wrong!',
-          //     });
+          } catch(err){
+              Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message || 'Something went wrong!',
+              });
       
-          //   }
-          // })
+            }
+          })
       
           const td6 = document.createElement('td');
           td6.append(exBtn, updateBtn, delBtn); 
@@ -518,12 +513,9 @@ ascBtn.addEventListener('click', e=>{
   try{
     //sort data in ascending order
     clearTable();
-    // course.forEach((chapter,index)=>{chapter.index = index;})
-    // course.sort((a,b)=> a.index - b.index);
-    // course.sort();
-    setTimeout(()=>{
-      renderTable(courseCopy);
-    },2000);
+    course.forEach((chapter,index)=>{chapter.index = index;})
+    course.sort((a,b)=> a.index - b.index);
+    renderTable(course);
 
 
     Swal.fire({
