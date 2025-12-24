@@ -1,4 +1,4 @@
-const loginForm = document.getElementById('loginForm');
+const loginForm = document.getElementById('signupForm');
 
 const email = document.getElementById('em');
 const password = document.getElementById('ps');
@@ -8,12 +8,13 @@ loginForm.addEventListener('submit', e=>{
     try{
         if (email.value == "emsi123@app.com" && password.value == "emsi123"){
             Swal.fire({
-                title: "Log In!",
-                text: "You logged in successfully!",
+                title: "Sign up!",
+                text: "You signed up successfully!",
                 icon: "success"
             });  
             window.localStorage.setItem('email', email);
             window.localStorage.setItem('password', password);
+    
         }
     } catch(err){
         Swal.fire({
@@ -30,4 +31,3 @@ loginForm.addEventListener('submit', e=>{
     }
     } 
 )
-

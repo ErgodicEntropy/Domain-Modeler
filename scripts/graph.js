@@ -6,7 +6,7 @@ if (!course.length){
               title: 'Oops...',
               text: 'No Course',
     });
-
+    alert("empty course list");
 }
 
 const nodes = course.map((chapter,index) => (
@@ -22,13 +22,23 @@ const nodes = course.map((chapter,index) => (
     }
 ));
 
+if (!nodes.length){
+    Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'No Nodes',
+    });
+    alert("empty nodes list");
+
+}
+
+
 //this function determines if there is an edge between two nodes or not -> prerequisite logic
 
 const edges = []
 
 course.forEach((chapter, index) => {
         const preqs  = chapter.prerequisites; //chapter object key with a value as an array of indices of prerequisite chapters ('before' relationship)
-        alert(preqs.length);
         for (let k = 0; k < preqs.length; k++){
             edges.push({
                 from:preqs[k],
@@ -38,13 +48,22 @@ course.forEach((chapter, index) => {
         }
 });
 
+if (!edges.length){
+    Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'No Edges',
+    });
+    alert("empty edges list");
+}
+
 
 //construction
 const container = document.getElementById('graph');
 
 const data = {
-    nodes: new vis.Dataset(nodes),
-    edges: new vis.Dataset(edges)
+    nodes: new vis.DataSet(nodes),
+    edges: new vis.DataSet(edges)
 }
 
 const options = {
@@ -66,4 +85,4 @@ const options = {
     // }
 }
 
-new vis.Network(container, data, options); 
+new vis.Network(container, data, options);
