@@ -1,4 +1,13 @@
-const course = JSON.parse(window.localStorage.getItem('course')); 
+const course = JSON.parse(window.localStorage.getItem('course') || '[]'); 
+
+if (!course.length){
+    Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'No Course',
+    });
+
+}
 
 const nodes = course.map((chapter,index) => (
     {
@@ -19,11 +28,12 @@ const edges = []
 
 course.forEach((chapter, index) => {
         const preqs  = chapter.prerequisites; //chapter object key with a value as an array of indices of prerequisite chapters ('before' relationship)
+        alert(preqs.length);
         for (let k = 0; k < preqs.length; k++){
             edges.push({
                 from:preqs[k],
                 to: index,
-                arrow: "to"
+                arrows: "to"
             })
         }
 });

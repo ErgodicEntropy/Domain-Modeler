@@ -8,151 +8,149 @@ const course = JSON.parse(window.localStorage.getItem('course'));
 const tbody = document.getElementById('knowledgeTableB'); 
 
 course.forEach((chapter, index) => {
-    const tr = document.createElement('tr');
-    tr.className = "even:bg-gray-100 hover:bg-gray-200"; 
-    tr.id = `tR${index}`; 
-
-    const td1 = document.createElement('td');
-    td1.textContent = chapter.knowledgeUnit;
-    td1.className = "px-4 py-2 border border-gray-200";
-    td1.id = `knowledgeUnit${index}`; 
-
-    const td2 = document.createElement('td');
-    td2.textContent = chapter.definition;
-    td2.className = "px-4 py-2 border border-gray-200";
-    td2.id = `definition${index}`; 
-
-    const td3 = document.createElement('td');
-    td3.textContent = chapter.purpose;
-    td3.className = "px-4 py-2 border border-gray-200";
-    td3.id = `purpose${index}`; 
-
-    const td4 = document.createElement('td');
-    const preqs = course.filter(c=>c.prerequisites.includes(course.indexOf(chapter))).map(c=>c.knowledgeUnit).toString(); //.join(",")
-    td4.textContent = (preqs || "");
-    td4.className = "px-4 py-2 border border-gray-200";
-    td4.id = `prerequisites${index}`; 
-
-    const td5 = document.createElement('td');
-    const a = document.createElement('a'); 
-    a.href = chapter.references[0]; 
-    a.textContent = chapter.references[0]; 
-    a.target = '_blank';
-    td5.appendChild(a);
-    td5.className = "px-4 py-2 border border-gray-200";
-    td5.id = `references${index}`; 
-
-
-    //action buttons
-    const exBtn = document.createElement('button');
-    exBtn.id = `exBtn${index}`; 
-    exBtn.textContent = "Examinate";
-    exBtn.setAttribute('type', 'button');
-    exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
-
-    const updateBtn = document.createElement('button');
-    updateBtn.id = `updateBtn${index}`;
-    updateBtn.textContent = "Update";
-    updateBtn.setAttribute('type', 'button');
-    updateBtn.className = "w-full bg-purple-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
-
-  //   updateBtn.addEventListener('click', e=>{
-  //   e.preventDefault();
-  //   try {  
-  //     const overlay = document.getElementById('overlay');
-  //     overlay.classList.remove('hidden');
+      const tr = document.createElement('tr');
+      tr.className = "even:bg-gray-100 hover:bg-gray-200"; 
+      tr.id = `tR${index}`; 
   
-  //     document.getElementById('auLegend').textContent = 'Update a unit';
+      const td1 = document.createElement('td');
+      td1.textContent = chapter.knowledgeUnit;
+      td1.className = "px-4 py-2 border border-gray-200";
+      td1.id = `knowledgeUnit${index}`; 
   
-  //     document.getElementById('auBtn').textContent = 'Update';
-
-  //     document.getElementById('auForm').addEventListener('submit', e=>{
-  //     e.preventDefault();   
-  //     try {
-  //       //user submitted form
-  //       const name = document.getElementById('unitName').value;
-  //       const def = document.getElementById('unitDef').value;
-  //       const pur = document.getElementById('unitPurpose').value;
-  //       const pos = document.getElementById('unitPos').value;
-  //       const ref = document.getElementById('unitRef').value;
+      const td2 = document.createElement('td');
+      td2.textContent = chapter.definition;
+      td2.className = "px-4 py-2 border border-gray-200";
+      td2.id = `definition${index}`; 
+  
+      const td3 = document.createElement('td');
+      td3.textContent = chapter.purpose;
+      td3.className = "px-4 py-2 border border-gray-200";
+      td3.id = `purpose${index}`; 
+  
+      const td4 = document.createElement('td');
+      const preqs = course.filter(c=>c.prerequisites.includes(course.indexOf(chapter))).map(c=>c.knowledgeUnit).toString(); //.join(",")
+      td4.textContent = (preqs || "");
+      td4.className = "px-4 py-2 border border-gray-200";
+      td4.id = `prerequisites${index}`; 
+  
+      const td5 = document.createElement('td');
+      const a = document.createElement('a'); 
+      a.href = chapter.references[0]; 
+      a.textContent = chapter.references[0]; 
+      a.target = '_blank';
+      td5.appendChild(a);
+      td5.className = "px-4 py-2 border border-gray-200";
+      td5.id = `references${index}`; 
+  
+  
+      //action buttons
+      const exBtn = document.createElement('button');
+      exBtn.id = `exBtn${index}`; 
+      exBtn.textContent = "Examinate";
+      exBtn.setAttribute('type', 'button');
+      exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+  
+      const updateBtn = document.createElement('button');
+      updateBtn.id = `updateBtn${index}`;
+      updateBtn.textContent = "Update";
+      updateBtn.setAttribute('type', 'button');
+      updateBtn.className = "w-full bg-purple-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+  
+    //   updateBtn.addEventListener('click', e=>{
+    //   e.preventDefault();
+    //   try {  
+    //     const overlay = document.getElementById('overlay');
+    //     overlay.classList.remove('hidden');
+    
+    //     document.getElementById('auLegend').textContent = 'Update a unit';
+    
+    //     document.getElementById('auBtn').textContent = 'Update';
+  
+    //     document.getElementById('auForm').addEventListener('submit', e=>{
+    //     e.preventDefault();   
+    //     try {
+    //       //user submitted form
+    //       const name = document.getElementById('unitName').value;
+    //       const def = document.getElementById('unitDef').value;
+    //       const pur = document.getElementById('unitPurpose').value;
+    //       const pos = document.getElementById('unitPos').value;
+    //       const ref = document.getElementById('unitRef').value;
+            
+    //       td1.textContent = name;
+    //       td2.textContent = def;
+    //       td3.textContent = pur; 
+    //       td4.textContent = pos;
+    //       td5.textContent = ref; 
+  
+  
+    //       Swal.fire({
+    //         title: "Update!",
+    //         text: "Chapter updated successfully!",
+    //         icon: "success"
+    //       });
           
-  //       td1.textContent = name;
-  //       td2.textContent = def;
-  //       td3.textContent = pur; 
-  //       td4.textContent = pos;
-  //       td5.textContent = ref; 
-
-
-  //       Swal.fire({
-  //         title: "Update!",
-  //         text: "Chapter updated successfully!",
-  //         icon: "success"
-  //       });
-        
-  //       overlay.classList.add('hidden');
-
-  //     } catch(err){
-  //       Swal.fire({
-  //             icon: 'error',
-  //             title: 'Oops...',
-  //             text: err.message || 'Something went wrong!',
-  //       });
-
-  //     }
-
-  //   })  
-  //   } catch(err){
-  //       Swal.fire({
-  //             icon: 'error',
-  //             title: 'Oops...',
-  //             text: err.message || 'Something went wrong!',
-  //       });
-  //   }
+    //       overlay.classList.add('hidden');
   
-  // })
-
-
-    const delBtn = document.createElement('button');
-    delBtn.id = `delBtn${index}`;
-    delBtn.textContent = "Delete";
-    delBtn.setAttribute('type', 'button');
-    delBtn.className = "w-full bg-red-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
-
-    // delBtn.addEventListener('click', e=>{
-    // e.preventDefault();
-    // try {
-    //   const id  = tr.dataset.id;
-
-    //   tr.remove();
-
-    //   course.filter(c => c.id !== id); 
-
-    //   Swal.fire({
-    //       title: "Deletion!",
-    //       text: "Chapter deleted successfully!",
-    //       icon: "success"
-    //     });  
-
-    // } catch(err){
-    //     Swal.fire({
-    //           icon: 'error',
-    //           title: 'Oops...',
-    //           text: err.message || 'Something went wrong!',
-    //     });
-
+    //     } catch(err){
+    //       Swal.fire({
+    //             icon: 'error',
+    //             title: 'Oops...',
+    //             text: err.message || 'Something went wrong!',
+    //       });
+  
+    //     }
+  
+    //   })  
+    //   } catch(err){
+    //       Swal.fire({
+    //             icon: 'error',
+    //             title: 'Oops...',
+    //             text: err.message || 'Something went wrong!',
+    //       });
     //   }
+    
     // })
-
-    const td6 = document.createElement('td');
-    td6.append(exBtn, updateBtn, delBtn); 
-
-    tr.append(td1,td2,td3,td4,td5,td6);
-
-    tbody.appendChild(tr); 
-
-});
-
-
+  
+  
+      const delBtn = document.createElement('button');
+      delBtn.id = `delBtn${index}`;
+      delBtn.textContent = "Delete";
+      delBtn.setAttribute('type', 'button');
+      delBtn.className = "w-full bg-red-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
+  
+      // delBtn.addEventListener('click', e=>{
+      // e.preventDefault();
+      // try {
+      //   const id  = tr.dataset.id;
+  
+      //   tr.remove();
+  
+      //   course.filter(c => c.id !== id); 
+  
+      //   Swal.fire({
+      //       title: "Deletion!",
+      //       text: "Chapter deleted successfully!",
+      //       icon: "success"
+      //     });  
+  
+      // } catch(err){
+      //     Swal.fire({
+      //           icon: 'error',
+      //           title: 'Oops...',
+      //           text: err.message || 'Something went wrong!',
+      //     });
+  
+      //   }
+      // })
+  
+      const td6 = document.createElement('td');
+      td6.append(exBtn, updateBtn, delBtn); 
+  
+      tr.append(td1,td2,td3,td4,td5,td6);
+  
+      tbody.appendChild(tr); 
+  
+  });
 
 const addBtn = document.getElementById("addBtn");
 
@@ -241,11 +239,15 @@ addBtn.addEventListener('click', e=>{
     
         course.push({knowledgeUnit: name, definition: def, purpose: pur, prerequisites:preqs, references: ref});
   
-        Swal.fire({
-            title: "Added!",
-            text: "New chapter added successfully!",
-            icon: "success"
-        });  
+        overlay.classList.add('hidden');
+        
+        setTimeout(()=>{
+          Swal.fire({
+              title: "Added!",
+              text: "New chapter added successfully!",
+              icon: "success"
+          });            
+        },1000)
 
       } catch (err){
         Swal.fire({
@@ -253,12 +255,7 @@ addBtn.addEventListener('click', e=>{
               title: 'Oops...',
               text: err.message || 'Something went wrong!',
         });
-      } finally {
-        setTimeout(()=>{
-          overlay.classList.add('hidden');
-        },1000)
-      }
-
+      } 
     })
 
 })
@@ -327,11 +324,8 @@ ascBtn.addEventListener('click', e=>{
   e.preventDefault()
   try{
     //sort data in ascending order
-    course.sort((a,b)=>{
-      if (a.knowledgeUnit < b.knowledgeUnit) return -1;
-      if (a.knowledgeUnit > b.knowledgeUnit) return 1;
-      return 0;
-    });     
+    course.forEach((chapter,index)=>{chapter.index = index;})
+    course.sort((a,b)=> a.index - b.index);
 
     Swal.fire({
         title: "Sorted!",
@@ -352,16 +346,14 @@ const descBtn = document.getElementById("descSortBtn");
 descBtn.addEventListener('click', e=>{
   e.preventDefault()
   try{
-    //sort data in ascending order
-    course.sort((a,b)=>{
-      if (a.knowledgeUnit > b.knowledgeUnit) return -1;
-      if (a.knowledgeUnit < b.knowledgeUnit) return 1;
-      return 0;
-    });     
+    //sort data in descending order
+    // course.forEach((chapter,index)=>{chapter.index = index;})
+    // course.sort((a,b)=> b.index - a.index);
+    course.reverse();
 
     Swal.fire({
         title: "Sorted!",
-        text: "Sorted Ascend",
+        text: "Sorted Descend",
         icon: "success"
       });  
   }catch(err){
