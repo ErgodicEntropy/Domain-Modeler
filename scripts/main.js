@@ -595,3 +595,39 @@ document.getElementById('searchForm').addEventListener('submit', e =>{
     }
 });
 
+
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+
+// Check saved preference in localStorage
+if(localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+    themeToggleBtn.textContent = '☀️';
+}
+
+// Toggle dark mode on click
+themeToggleBtn.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+
+    if(document.documentElement.classList.contains('dark')){
+        themeToggleBtn.textContent = '☀️';
+        localStorage.setItem('theme', 'dark'); // save preference
+    } else {
+        themeToggleBtn.textContent = '🌙';
+        localStorage.setItem('theme', 'light'); // save preference
+    }
+});
+
+const langToggleBtn = document.getElementById('langToggleBtn');
+
+langToggleBtn.addEventListener('click', () => {
+    if(langToggleBtn.textContent === 'EN'){
+        langToggleBtn.textContent = 'FR'; // Example: switch to French
+        // Update text content dynamically
+        document.querySelector('h1').textContent = 'Carte Mentale EMSI';
+        document.querySelector('p').textContent = "EMSI CourseGraph est un graphe de connaissances interactif ...";
+    } else {
+        langToggleBtn.textContent = 'EN';
+        document.querySelector('h1').textContent = 'EMSI MindMap';
+        document.querySelector('p').textContent = "EMSI CourseGraph is an interactive knowledge graph ...";
+    }
+});

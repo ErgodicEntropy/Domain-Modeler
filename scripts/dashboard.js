@@ -8,8 +8,17 @@ document.getElementById('barBtn').addEventListener('click', e=>{
     const labels = course.map(c => c.knowledgeUnit);
     // const values = course.map(c => c.references.length);
     const values = course.map(c => course.length - course.indexOf(c)); 
+
+    const canvas = document.createElement('canvas');
+    canvas.id = "barChart";
     
-    new Chart(document.getElementById("chart"), {
+    const div = document.getElementById("chart");
+    div.innerHTML = "";
+    div.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+
+    new Chart(ctx, {
       type: "bar",
       data: {
         labels,
@@ -58,8 +67,18 @@ document.getElementById('pieBtn').addEventListener('click', e=>{
         categories["Introduction"]++;
       }
     });
+
+    const canvas = document.createElement('canvas');
+    canvas.id = "pieChart";
     
-    new Chart(document.getElementById("chart"), {
+    const div = document.getElementById("chart");
+    div.innerHTML = "";
+    div.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+
+    
+    new Chart(ctx, {
       type: "pie",
       data: {
         labels: Object.keys(categories),
@@ -87,8 +106,17 @@ document.getElementById('donutBtn').addEventListener('click', e=>{
   e.preventDefault();
   try {
     const totalRefs = course.reduce((sum, c) => sum + c.references.length, 0);
+
+    const canvas = document.createElement('canvas');
+    canvas.id = "donutChart";
     
-    new Chart(document.getElementById("chart"), {
+    const div = document.getElementById("chart");
+    div.innerHTML = "";
+    div.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+
+    new Chart(ctx, {
       type: "doughnut",
       data: {
         labels: ["Chapters", "References"],
@@ -119,7 +147,16 @@ documnet.getElementById('lineBtn').addEventListener('click', e=>{
       return cumulative;
     });
     
-    new Chart(document.getElementById("chart"), {
+    const canvas = document.createElement('canvas');
+    canvas.id = "lineChart";
+    
+    const div = document.getElementById("chart");
+    div.innerHTML = "";
+    div.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+
+    new Chart(ctx, {
       type: "line",
       data: {
         labels: course.map((_, i) => `Chapter ${i + 1}`),
@@ -150,8 +187,17 @@ document.getElementById('scatterBtn').addEventListener('click', e=>{
       x: i + 1,
       y: c.references.length
     }));
+
+    const canvas = document.createElement('canvas');
+    canvas.id = "scatterChart";
     
-    new Chart(document.getElementById("chart"), {
+    const div = document.getElementById("chart");
+    div.innerHTML = "";
+    div.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+
+    new Chart(ctx, {
       type: "scatter",
       data: {
         datasets: [{
