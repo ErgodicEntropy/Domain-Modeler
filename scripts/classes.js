@@ -1,20 +1,4 @@
 // use OOP to modularize the main.js
-class Table extends Course{
-  constructor(course){
-    super(this.name, course)
-    this.rows = course.length;
-    this.cols = 6;
-  }
-
-  ascSortTable(){
-    
-  }
- 
-  descSortTable(){
-    
-  }
-}
-
 class Course{
   constructor(name, chapterList){
     this.name = name;
@@ -240,6 +224,26 @@ class Course{
 class Chapter{ //composition relation to course
   
   
+}
+
+class Table extends Course{
+  constructor(course){
+    super(this.name, course)
+    this.rows = course.length;
+    this.cols = 6;
+  }
+
+  renderElement(){
+
+  }
+  
+  ascSortTable(){
+    
+  }
+ 
+  descSortTable(){
+    
+  }
 }
 
 /////////////////////////////////////
