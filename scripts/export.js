@@ -18,7 +18,14 @@ document.getElementById('exportBtn').addEventListener('click', async (e) =>{
         const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
         pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-        pdf.save('course.pdf');
+        pdf.save('course.pdf'); //downloads the file locally
+
+        Swal.fire({
+              title: "Export",
+              text: "Your course exported successfully!",
+              icon: "success"
+        });            
+
 
     } catch(err){
         Swal.fire({
