@@ -1398,6 +1398,12 @@ const courseDir = {
   "unix":7
 }
 
+const username = window.localStorage.getItem('username');
+
+const a = document.getElementById('userNav');
+a.textContent = username;
+
+
 
 const courseForm = document.getElementById('courseForm');
 
@@ -1410,11 +1416,6 @@ courseForm.addEventListener('submit', e=>{
             icon: "success"
         });
         
-        const username = window.localStorage.getItem('username');
-        
-        const a = document.getElementById('userNav');
-        a.textContent = username;
-
         const selectedCourse = document.getElementById('course').value;
 
         const courseIndex = courseDir[selectedCourse];
