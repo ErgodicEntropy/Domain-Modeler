@@ -92,7 +92,7 @@ document.getElementById('quizForm').addEventListener('submit', e => {
     }
 });
 
-const questionsByField = {
+// const questionsByField = {
 //     0: [
 //       "What is the difference between C and C++?",
 //       "Explain object-oriented programming in C++.",
