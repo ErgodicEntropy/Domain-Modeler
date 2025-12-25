@@ -12,22 +12,31 @@ loginForm.addEventListener('submit', e=>{
                 text: "You logged in successfully!",
                 icon: "success"
             });  
-            window.localStorage.setItem('email', email);
-            window.localStorage.setItem('password', password);
-        }
-    } catch(err){
-        Swal.fire({
+            window.localStorage.setItem('email', email.value);
+            window.localStorage.setItem('password', password.value);
+
+            setTimeout(() => {
+                window.location.href = 'profile.html'}
+                
+            , 3000); 
+
+        } else {
+            Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Wrong Email or Password!",
             footer: '<a href="#">Why do I have this issue?</a>'
-        });
-    } finally {
-        setTimeout(() => {
-            window.location.href = 'profile.html'}
-            
-        , 3000); 
+            }); 
+        }
+    } catch(err){
+            Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.message,
+            footer: '<a href="#">Why do I have this issue?</a>'
+            }); 
     }
+    
     } 
 )
 
