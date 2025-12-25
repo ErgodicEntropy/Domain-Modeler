@@ -5,8 +5,6 @@ a.textContent = username;
 
 const course = JSON.parse(window.localStorage.getItem('course')); 
 
-const courseCopy = course;
-
 const tbody = document.getElementById('knowledgeTableB'); 
 
 
@@ -513,9 +511,8 @@ ascBtn.addEventListener('click', e=>{
   try{
     //sort data in ascending order
     clearTable();
-    course.forEach((chapter,index)=>{chapter.index = index;})
-    course.sort((a,b)=> a.index - b.index);
-    renderTable(course);
+    const courseCopy =  JSON.parse(window.localStorage.getItem('course')); 
+    renderTable(courseCopy);
 
 
     Swal.fire({
@@ -588,26 +585,24 @@ document.getElementById('searchForm').addEventListener('submit', e =>{
 });
 
 
-const themeToggleBtn = document.getElementById('themeToggleBtn');
+const lightClasses =
+  "bg-green-100 text-gray-800 p-8 transition-colors duration-300";
 
-// Check saved preference in localStorage
-if(localStorage.getItem('theme') === 'dark') {
-    document.documentElement.classList.add('dark');
-    themeToggleBtn.textContent = '☀️';
-}
+const darkClasses =
+  "bg-gray-900 text-gray-100 p-8 transition-colors duration-300";
 
-// Toggle dark mode on click
-themeToggleBtn.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
+const body = document.getElementById("mainBody");
+const lightBtn = document.getElementById("lightBtn");
+const darkBtn = document.getElementById("darkBtn");
 
-    if(document.documentElement.classList.contains('dark')){
-        themeToggleBtn.textContent = '☀️';
-        localStorage.setItem('theme', 'dark'); // save preference
-    } else {
-        themeToggleBtn.textContent = '🌙';
-        localStorage.setItem('theme', 'light'); // save preference
-    }
+lightBtn.addEventListener("click", () => {
+  body.className = lightClasses;
 });
+
+darkBtn.addEventListener("click", () => {
+  body.className = darkClasses;
+});
+
 
 const langToggleBtn = document.getElementById('langToggleBtn');
 

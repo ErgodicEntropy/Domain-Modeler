@@ -51,7 +51,6 @@ stars.forEach(star => {
     });
 });
 
-// Handle form submit
 form.addEventListener("submit", e => {
     e.preventDefault();
     try {
