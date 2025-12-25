@@ -31,3 +31,52 @@ loginForm.addEventListener('submit', e=>{
     } 
 )
 
+
+
+const stars = document.querySelectorAll("#starRating .star");
+const ratingInput = document.getElementById("ratingValue");
+const form = document.getElementById("ratingForm");
+
+let selectedRating = 0;
+
+stars.forEach(star => {
+    star.addEventListener("click", () => {
+        selectedRating = Number(star.dataset.value);
+        ratingInput.value = selectedRating;
+
+        stars.forEach(s => {
+            s.classList.toggle("text-yellow-400", s.dataset.value <= selectedRating);
+            s.classList.toggle("text-gray-400", s.dataset.value > selectedRating);
+        });
+    });
+});
+
+// Handle form submit
+form.addEventListener("submit", e => {
+    e.preventDefault();
+    try {
+        if (!selectedRating) {
+            alert("Please select a rating first");
+            return;
+        }
+
+        console.log("User rating:", selectedRating);
+
+        Swal.fire({
+            title: "Feedback",
+            text: "Thanks for your feedback!",
+            icon: "success"
+        });  
+
+        form.querySelector("button").disabled = true;
+
+    } catch(err){
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: err.message,
+        });
+
+    }
+
+});

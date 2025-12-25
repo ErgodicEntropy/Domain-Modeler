@@ -13,7 +13,7 @@ const cohere = new Cohere({
 });
 
 const prompt = new PromptTemplate({
-  template: "Generate 3 clear, concise questions based on the following chapter:\n\n{chapter}\n\nQuestions:",
+  template: "Generate 3 clear, concise questions in the form of an array based on the following chapter:\n\n{chapter}\n\nQuestions:",
   inputVariables: ["chapter"],
 });
 
@@ -22,45 +22,55 @@ const chain = new LLMChain({
   prompt: prompt,
 });
 
-async function genQuest(chap){
+async function genQuest(ch){
   try{
-    const response = await chain.call({chap});
+    const response = await chain.call({ch});
     return response.text;
   } catch(err){
     console.log(err.message);
+    return null;
   }
 }
 
-const questions  = await genQuest(chapter);
+async function quiz(ch){
+  const response = await genQuest(ch);
 
-// const questions = [
-//       "What is C++ mainly used for?",
-//       "Explain the difference between a pointer and a reference.",
-//       "What is RAII and why is it important?"
-//     ];
+  const questions = [...response];
 
-questions.forEach((q, i) => {
-    const quizDiv = document.getElementById('questionsContainer');
+  alert(questions);
 
-    const div = document.createElement('div');
-    div.className = "p-4 bg-white rounded-lg shadow-md";
-    const label = document.createElement('label');  
-    label.className = "block font-medium text-gray-700 mb-2";
-    label.textContent = `Question${i}`;
-    div.appendChild(label);
-    const span = document.createElement('span');  
-    span.id = `q${i+1}`;
-    span.className = "text-gray-400";
-    span.textContent = q;
-    label.appendChild(span);
-    const inp = document.createElement('textarea');  
-    inp.type = "text";
-    inp.placeholder = "Your answer...";
-    inp.className = "w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400";
-    div.appendChild(inp);
+  if (questions.length){
     
-    quizDiv.appendChild(div);
-});
+    alert(Array.isArray(questions));
+    questions.forEach((q, i) => {
+        const quizDiv = document.getElementById('questionsContainer');
+    
+        const div = document.createElement('div');
+        div.className = "p-4 bg-white rounded-lg shadow-md";
+        const label = document.createElement('label');  
+        label.className = "block font-medium text-gray-700 mb-2";
+        label.textContent = `Question${i}`;
+        div.appendChild(label);
+        const span = document.createElement('span');  
+        span.id = `q${i+1}`;
+        span.className = "text-gray-400";
+        span.textContent = q;
+        label.appendChild(span);
+        const inp = document.createElement('textarea');  
+        inp.type = "text";
+        inp.placeholder = "Your answer...";
+        inp.className = "w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400";
+        div.appendChild(inp);
+        
+        quizDiv.appendChild(div);
+    });
+  } else {
+    console.log("No questions have been generated!");
+  }
+
+}  
+
+quiz(chapter);
 
 document.getElementById('quizForm').addEventListener('submit', e => {
     e.preventDefault();
