@@ -7,8 +7,8 @@ document.getElementById('barBtn').addEventListener('click', e=>{
 
     const labels = course.map(c => c.knowledgeUnit);
     // const values = course.map(c => c.references.length);
-    const values = course.map(c => course.length - course.indexOf(c)); 
-
+    const values = course.map(c => c.prerequisites.length).reverse(); 
+    
     const canvas = document.createElement('canvas');
     canvas.id = "barChart";
     
@@ -137,7 +137,7 @@ document.getElementById('donutBtn').addEventListener('click', e=>{
 })  
 
 
-documnet.getElementById('lineBtn').addEventListener('click', e=>{
+document.getElementById('lineBtn').addEventListener('click', e=>{
   e.preventDefault();
   try {
 
