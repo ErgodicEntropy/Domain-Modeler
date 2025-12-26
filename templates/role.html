@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta>
+    <title>E-Learning Platform</title>
+    <script src="../scripts/profile.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">EMSI MindGraph</h1>
+    <!-- <p class="text-gray-700 text-base text-center max-w-xl mx-auto mb-6"><strong>Role</strong></p> -->
+
+    <div class="flex justify-center items-center mt-8">
+        <!-- method="POST" action="../scripts/profile.php" -->
+            <form id="profileForm" class="w-full max-w-sm bg-white p-6 rounded-xl shadow-md">
+                <!-- <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">Profile</h2> -->
+
+                <fieldset class="border border-gray-300 rounded-xl p-4 mb-6">
+                    <legend class="text-lg font-semibold text-center text-gray-800 mb-2">Choose a Role</legend>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="cursor-pointer">
+                            <input type="radio" id="teacherRole" name="role" value="teacher" class="peer hidden">
+                            <div class="flex flex-col items-center justify-center p-6 border-2 rounded-xl
+                                        transition border-gray-300 peer-checked:border-blue-500 peer-checked:bg-blue-50">
+                                <span class="text-4xl mb-2">👨‍🏫</span>
+                                <span class="font-semibold text-gray-700">Teacher</span>
+                            </div>
+                        </label>
+
+                        <label class="cursor-pointer">
+                            <input type="radio" id="studentRole" name="role" value="student" class="peer hidden">
+                            <div class="flex flex-col items-center justify-center p-6 border-2 rounded-xl
+                                        transition border-gray-300 peer-checked:border-blue-500 peer-checked:bg-blue-50">
+                                <span class="text-4xl mb-2">🎓</span>
+                                <span class="font-semibold text-gray-700">Student</span>
+                            </div>
+                        </label>
+                    </div>
+                <button type="submit" class="mt-6 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200">Save</button>
+                </fieldset>
+            </form>
+    </div>
+    
+
+</body>
+
+</html>

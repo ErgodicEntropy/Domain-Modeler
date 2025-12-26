@@ -1,11 +1,64 @@
 // use OOP to modularize the main.js
-class Course{
-  constructor(name, chapterList){
-    this.name = name;
-    this.chapterList = chapterList; 
-    this.nbChapters = chapterList.length;
-    this.button = {}; //buttons in the action column of the course table (initially empty)
+
+class Curriculum { //learning program or pathway: set of domains or courses from different domains or same domain (curriculum can collapse to a domain)
+  constructor(name, domainList){
+    this.name = name; 
+    this.domains = domainList; 
   }
+}
+
+class Domain{ //field of study or discipline
+  constructor(name, courseList){
+    this.name = name; 
+    this.courses = courseList; 
+  }
+
+}
+class Course{ //subdomain or knowledge area
+  constructor(name, description){     //syllabus
+    this.name = name;
+    this.description = description; 
+    this.tableOfContents = [{}]; //table of contents: a list of chapters and sublist of concepts for each chapter (composition relation)
+    this.nbChapters = this.tableOfContents.length;
+    this.prerequisites = []; 
+    this.readings = []; 
+    this.problemSet = []; //TP and TD
+    this.exams = []; //also quizzes
+    this.projects = []; 
+    this.meetingTimes = ''; 
+    this.gradeBreakdown = {}; // term-percentage key-value pairs
+  }
+  
+  get Name(){return this.name;}
+  get Desc(){return this.description;}
+
+  set name(n){this.name = n;}
+
+}
+
+class Chapter{ //topic or theme
+  constructor(name){
+    this.concepts = [];
+
+  }
+  
+}
+
+class Concept {
+  constructor(name){
+    this.name = name; 
+    this.workedExamples = [];
+  }
+}
+
+class Table {
+  constructor(course){
+    this.name = course.name; 
+    this.rows = course.nbChapters;
+    this.cols = 6;
+    this.button = {};
+  }
+
 
   createUpdate(index){
       const updateBtn = document.createElement('button');
@@ -34,6 +87,7 @@ class Course{
       exBtn.className = "w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200";
       this.button.examinate = exBtn;
   }
+
 
   addEvent(){
     this.handleAdd = this.handleAdd.bind(this);
@@ -140,13 +194,6 @@ class Course{
     })
 
   }
-  
-  get name(){return this.name;}
-  get numChapters(){return this.nbChapters;}
-  get chapters(){return this.chapterList;}
-  get buttons(){return this.buttons;}
-
-  set name(n){this.name = n;}
 
   renderTable(tableBody){ //HTMLElement type -> more specifically its inherited type is HTMLTableSectionElement
     this.chapterList.forEach((chapter, index) => {
@@ -215,28 +262,15 @@ class Course{
 
   }
 
-  clearTable(){
-
-  }
-
-}
-
-class Chapter{ //composition relation to course
   
-  
-}
-
-class Table extends Course{
-  constructor(course){
-    super(this.name, course)
-    this.rows = course.length;
-    this.cols = 6;
-  }
-
   renderElement(){
 
   }
   
+  clearTable(){
+
+  }
+
   ascSortTable(){
     
   }
@@ -253,3 +287,26 @@ class Table extends Course{
 /////////////////////////////////////
 
 
+
+class Person{
+  constructor(fn, ln, age){
+    this.firstname = fn;
+    this.lastname = ln; 
+    this.age = age; 
+  }
+}
+
+
+class Student extends Person{
+  constructor(fn,ln,age,major){
+    super(fn,ln,age)
+    this.major = major;
+  }
+}
+
+class Teacher extends Person{
+  constructor(fn,ln,age,subject){
+    super(fn,ln,age)
+    this.subject = subject;
+  }
+}
