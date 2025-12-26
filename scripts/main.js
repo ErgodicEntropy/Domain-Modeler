@@ -505,46 +505,17 @@ visBtn.addEventListener('click', e=>{
 
 })
 
-const ascBtn = document.getElementById("ascSortBtn");
-ascBtn.addEventListener('click', e=>{
+const sortBtn = document.getElementById("sortBtn");
+sortBtn.addEventListener('click', e=>{
   e.preventDefault()
   try{
-    //sort data in ascending order
-    clearTable();
-    const courseCopy =  JSON.parse(window.localStorage.getItem('course')); 
-    renderTable(courseCopy);
-
-
-    Swal.fire({
-        title: "Sorted!",
-        text: "Sorted Ascend",
-        icon: "success"
-      });  
-  }catch(err){
-      Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: err.message || 'Something went wrong!',
-      });
-  }
-})
-
-
-const descBtn = document.getElementById("descSortBtn");
-descBtn.addEventListener('click', e=>{
-  e.preventDefault()
-  try{
-    //sort data in descending order
-    // course.forEach((chapter,index)=>{chapter.index = index});
-    // course.sort((a,b)=>{b.index - a.index});
-
       clearTable()
       course.reverse();
       renderTable(course);
 
     Swal.fire({
         title: "Sorted!",
-        text: "Sorted Descend",
+        text: "Sorted",
         icon: "success"
       });  
   }catch(err){
@@ -592,29 +563,96 @@ const darkClasses =
   "bg-gray-900 text-gray-100 p-8 transition-colors duration-300";
 
 const body = document.getElementById("mainBody");
-const lightBtn = document.getElementById("lightBtn");
-const darkBtn = document.getElementById("darkBtn");
+const themeBtn = document.getElementById("themeToggleBtn");
 
-lightBtn.addEventListener("click", () => {
-  body.className = lightClasses;
+themeBtn.addEventListener("click", () => {
+  if (themeBtn.textContent == '🌙'){ 
+    themeBtn.textContent = '☀️';
+    themeBtn.className = "bg-yellow-100 text-white py-2 px-4 rounded-md hover:bg-gray-700 transition duration-200";
+    body.className = lightClasses;
+  } else {
+    themeBtn.textContent = '🌙';
+    themeBtn.className = "bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 transition duration-200"; 
+    body.className = darkClasses;
+  }
+  
 });
 
-darkBtn.addEventListener("click", () => {
-  body.className = darkClasses;
-});
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    sidebar.classList.toggle('-translate-x-full');
+    overlay.classList.toggle('hidden');
+}
+
+// const apiUrl = "https://libretranslate.com/translate";
+
+const apiUrl = "https://libretranslate.de/translate";
+
+async function translate(text, source, target){
+    try{
+      const response = await fetch(apiUrl,{
+        method:"POST",
+        headers:{"Content-Type":"application/json",  "Accept": "application/json"},
+        body:JSON.stringify({
+          q: text,
+          source: source,
+          target: target,
+          format: "text",
+          api_key: ""
+        })
+      })
+      if (response.ok){ //response.status == 200
+        const resp = await response.json();
+        return resp.translatedText;
+      } else {
+        return "";
+      }
+    } catch(err){
+      throw Error(err.message);
+    }
+}
 
 
 const langToggleBtn = document.getElementById('langToggleBtn');
 
-langToggleBtn.addEventListener('click', () => {
+langToggleBtn.addEventListener('click', async () => {
     if(langToggleBtn.textContent === 'EN'){
-        langToggleBtn.textContent = 'FR'; // Example: switch to French
-        // Update text content dynamically
+        langToggleBtn.textContent = 'FR'; 
         document.querySelector('h1').textContent = 'Carte Mentale EMSI';
         document.querySelector('p').textContent = "EMSI CourseGraph est un graphe de connaissances interactif ...";
+
+        clearTable(); 
+        const trCourse = []; 
+        for (const chap of course){
+          const k = await translate(chap.knowledgeUnit, 'en', 'fr');
+          const d = await translate(chap.definition, 'en', 'fr');
+          const p = await translate(chap.purpose, 'en', 'fr');
+          const pre = await Promise.all(chap.prerequisites.map(pr => translate(pr, 'en', 'fr'))); 
+          trCourse.push({knowledgeUnit:k, definition:d, purpose:p, prerequisites:pre}); 
+        }
+        
+        renderTable(trCourse);
+
     } else {
         langToggleBtn.textContent = 'EN';
         document.querySelector('h1').textContent = 'EMSI MindMap';
         document.querySelector('p').textContent = "EMSI CourseGraph is an interactive knowledge graph ...";
-    }
+ 
+        clearTable();  
+        const trCourse = [];  
+        for (const chap of course){ 
+          const k = await translate(chap.knowledgeUnit, 'fr', 'en');
+          const d = await translate(chap.definition, 'fr', 'en');
+          const p = await translate(chap.purpose, 'fr', 'en');
+          const pre = await Promise.all(chap.prerequisites.map(pr => translate(pr, 'fr', 'en'))); 
+          
+          trCourse.push({knowledgeUnit:k, definition:d, purpose:p, prerequisites:pre}); 
+        }
+
+        renderTable(trCourse);
+
+      }
 });
+

@@ -244,6 +244,10 @@ class Table extends Course{
   descSortTable(){
     
   }
+
+  translateTable(targetLang){
+    
+  }
 }
 
 /////////////////////////////////////
