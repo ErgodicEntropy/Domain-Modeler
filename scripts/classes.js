@@ -271,6 +271,9 @@ class Table {
 
   }
 
+  searchElement(){
+
+  }
   ascSortTable(){
     
   }
@@ -289,24 +292,31 @@ class Table {
 
 
 class Person{
-  constructor(fn, ln, age){
+  constructor(fn, ln, age, role){
     this.firstname = fn;
     this.lastname = ln; 
     this.age = age; 
+    this.role = role;
   }
 }
 
 
 class Student extends Person{
-  constructor(fn,ln,age,major){
-    super(fn,ln,age)
+  constructor(fn,ln,age,un, email, password, major){
+    super(fn,ln,age,'student')
     this.major = major;
+    this.username = un;
+    this.email = email;
+    this.password = password;
   }
 }
 
 class Teacher extends Person{
-  constructor(fn,ln,age,subject){
-    super(fn,ln,age)
+  constructor(fn,ln,age,un,email,password,subject){
+    super(fn,ln,age,'teacher')
     this.subject = subject;
+    this.username = un; 
+    this.email = email;
+    this.password = password;
   }
 }
